@@ -21,18 +21,18 @@ const OtpForm = () => {
     }
 
     return (
-        <Layout className="container section">
+        <div className="container section ">
             <div className="row d-flex justify-content-center">
-                <div className="col-md-5">
+                <div className="col-md-5 mt-4 mb-4">
                     <div className="card p-5">
                         <h4>Enter Verification Code</h4>
                         <p>A verification code has been sent to the email address you provide</p>
                         <input value={OTPFormData.otp} onChange={(e)=>{OTPFormOnChange("otp",e.target.value)}} placeholder="Verification" type="text" className="form-control"/>
-                        <UserSubmitButton onClick={onFormSubmit} submit={false} className="btn mt-3 btn-success" text="Submit"/>
+                        <UserSubmitButton onClick={onFormSubmit} submit={false} className="btn mt-3 btn-dark" text="Submit"/>
                     </div>
                 </div>
             </div>
-        </Layout>
+        </div>
     );
 };
 

@@ -13,7 +13,12 @@ import HowToBuyPage from "./pages/how-to-buy-page.jsx";
 import ContactPage from "./pages/contact-page.jsx";
 import ComplainPage from "./pages/complain-page.jsx";
 import LoginPage from "./pages/login-page.jsx";
-import OtpForm from "./components/user/otp-form.jsx";
+import ProfilePage from "./pages/profile-page.jsx";
+import WishPage from "./pages/wish-page.jsx";
+import CartPage from "./pages/cart-page.jsx";
+import OrderPage from "./pages/order-page.jsx";
+import OtpPage from "./pages/otp-page.jsx";
+import InvoicePage from "./pages/invoice-page.jsx";
 
 const App = () => {
     return (
@@ -33,7 +38,15 @@ const App = () => {
                 <Route path="/complain" element={<ComplainPage/>} />
 
                 <Route path="/login" element={<LoginPage/>} />
-                <Route path="/otp" element={<OtpForm/>} />
+                <Route path="/otp" element={<OtpPage/>} />
+                <Route path="/profile" element={<ProfilePage/>} />
+                <Route path="/cart" element={<CartPage/>} />
+                <Route path="/wish" element={<WishPage/>} />
+                <Route path="/orders" element={<OrderPage/>} />
+                <Route path="/invoice/:id" element={<InvoicePage/>} />
+
+
+
 
 
 

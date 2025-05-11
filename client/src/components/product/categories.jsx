@@ -10,26 +10,35 @@ const Categories = () => {
         return <CategoriesSkeleton/>
     }
     return (
-        <div className="section">
+        <div className="py-5 bg-light">
             <div className="container">
-                <div className="row">
-                    <h1 className="headline-4 text-center my-2 p-0">Top Categories</h1>
-                    <span className="bodySmal mb-5 text-center">Explore a World of Choices Across Our Most Popular <br/>Shopping Categories </span>
-                    {
-                        CategoryList.map((item, i) => {
-                            return (<div key={i} className="col-6 col-lg-8r text-center col-md-8r p-2">
-                                <Link to={`/by-category/${item['_id']}`} className="card h-100 rounded-3 bg-white">
-                                    <div className="card-body">
-                                        <img alt="" className="w-75" src={item['categoryImg']}/>
-                                        <p className="bodySmal mt-3">{item['categoryName']}</p>
+                <h2 className="text-center fw-bold mb-2">Top Categories</h2>
+                <p className="text-center text-muted mb-4">
+                    Explore a World of Choices Across Our Most Popular<br className="d-none d-md-block"/>
+                    Shopping Categories
+                </p>
+                <div className="row g-4 justify-content-center">
+                    {CategoryList.map((item, i) => (
+                        <div key={i} className="col-6 col-sm-4 col-md-3 col-lg-2">
+                            <Link to={`/by-category/${item['_id']}`} className="text-decoration-none">
+                                <div className="card h-100 border-0 shadow-sm text-center">
+                                    <div className="card-body d-flex flex-column align-items-center">
+                                        <img
+                                            src={item['categoryImg']}
+                                            alt={item['categoryName']}
+                                            className="img-fluid mb-3"
+                                            style={{maxHeight: '100px', objectFit: 'contain'}}
+                                        />
+                                        <p className="text-dark fw-semibold small mb-0">{item['categoryName']}</p>
                                     </div>
-                                </Link>
-                            </div>)
-                        })
-                    }
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
+
     );
 };
 

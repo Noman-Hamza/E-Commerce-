@@ -1,10 +1,8 @@
 import React from 'react';
-import WishStore from "../../store/WishStore.jsx";
-
-const WishSubmitButton = (props) => {
-
-    let {isWishSubmit}=WishStore();
-    if(isWishSubmit===false){
+import ReviewStore from "../../store/ReviewStore.jsx";
+const ReviewSubmitButton = (props) => {
+    let {isReviewSubmit}=ReviewStore();
+    if(isReviewSubmit===false){
         return  <button onClick={props.onClick} type="submit" className={props.className}>{props.text}</button>
     }else {
         return (
@@ -12,4 +10,4 @@ const WishSubmitButton = (props) => {
         );
     }
 };
-export default WishSubmitButton;
+export default ReviewSubmitButton;

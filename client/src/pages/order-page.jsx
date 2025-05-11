@@ -1,11 +1,13 @@
 import React from 'react';
-import OtpForm from "../components/user/otp-form.jsx";
+
+import Layout from "../components/layout/layout.jsx";
+import InvoiceList from "../components/invoice/invoice-list.jsx";
 
 const OrderPage = () => {
     return (
-        <div>
-          <OtpForm/>
-        </div>
+        <Layout>
+           <InvoiceList/>
+        </Layout>
     );
 };
 

@@ -38,13 +38,13 @@ const Slider = () => {
                                             <div className="row px-5 justify-content-center">
                                                 <div className="col-12 col-lg-5 col-sm-12 col-md-5 p-5">
                                                     <h1 className="headline-1 fw-bolder  text-white">{item['title']}</h1>
-                                                    <p className="h2 fw-bolder">{item['price']}</p>
-                                                    <p className="text-dark">{item['des']}</p>
+                                                    <p className="h2 fw-bolder text-primary">{item['price']}</p>
+                                                    <p className="text-white">{item['des']}</p>
 
-                                                    <Link to={`/details/${item['productID']}`} className="btn text-white btn-dark mt-1 px-5">Buy Now</Link>
+                                                    <Link to={`/details/${item['productID']}`} className="btn text-white btn-primary mt-1 px-5">Buy Now</Link>
                                                 </div>
-                                                <div className="col-12 col-lg-5 col-sm-12 col-md-5 p-5">
-                                                    <img src={item['image']} className="w-100" alt="..." />
+                                                <div className="col-12 col-lg-5 col-sm-12 col-md-5 p-5 ">
+                                                    <img src={item['image']} className="w-100 rounded-3" alt="..." />
                                                 </div>
                                             </div>
                                         </div>

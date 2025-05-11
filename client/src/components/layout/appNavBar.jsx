@@ -1,112 +1,165 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/img/plainb-logo.svg";
-import useProductStore from "../../store/ProductStore.jsx"; // Correct import
+import useProductStore from "../../store/ProductStore.jsx";
+import UserStore from "../../store/UserStore.jsx";
+import UserSubmitButton from "../user/UserSubmitButton.jsx";
+import CartStore from "../../store/CartStore.jsx";
+import wishStore from "../../store/WishStore.jsx";
 
-const AppNavBar = ({ CartCount, WishCount }) => {
-    const { SearchKeyword, SetSearchKeyword } = useProductStore(); // Correct state retrieval
+const AppNavBar = () => {
+    const navigate = useNavigate();
+    const { SearchKeyword, SetSearchKeyword } = useProductStore();
+    const { isLogin, UserLogoutRequest } = UserStore();
+    const { CartCount, CartListRequest } = CartStore();
+    const { WishListRequest, WishCount } = wishStore();
+
+    const onLogout = async () => {
+        await UserLogoutRequest();
+        sessionStorage.clear();
+        localStorage.clear();
+        navigate("/");
+    };
+
+    useEffect(() => {
+        (async () => {
+            if (isLogin()) {
+                await CartListRequest();
+                await WishListRequest();
+            }
+        })();
+    }, []);
 
     return (
         <>
             {/* Top Bar */}
-            <div className="container-fluid text-white p-2 bg-success">
+            <div className="bg-dark text-light py-2">
                 <div className="container">
-                    <div className="row justify-content-around">
-                        <div className="col-md-6">
-                            <span>
-                                <span className="f-12">
-                                    <i className="bi bi-envelope"></i> Support@PlanB.com
-                                </span>
-                                <span className="f-12 mx-2">
-                                    <i className="bi bi-envelope"></i> 01772595651
-                                </span>
-                            </span>
+                    <div className="row align-items-center">
+                        {/* Contact Info */}
+                        <div className="col-md-6 text-center text-md-start mb-2 mb-md-0">
+                            <small>
+                                <i className="bi bi-envelope me-2"></i> support@planb.com
+                                <span className="ms-4"><i className="bi bi-phone me-2"></i> 01772595651</span>
+                            </small>
                         </div>
-                        <div className="col-md-6">
-                            <span className="float-end">
-                                <span className="bodySmal mx-2">
-                                    <i className="bi bi-whatsapp"></i>
-                                </span>
-                                <span className="bodySmal mx-2">
-                                    <i className="bi bi-youtube"></i>
-                                </span>
-                                <span className="bodySmal">
-                                    <i className="bi bi-facebook"></i>
-                                </span>
-                            </span>
+
+                        {/* Social Icons */}
+                        <div className="col-md-6 text-center text-md-end">
+                            <a href="#" className="text-light me-3"><i className="bi bi-whatsapp"></i></a>
+                            <a href="#" className="text-light me-3"><i className="bi bi-youtube"></i></a>
+                            <a href="#" className="text-light"><i className="bi bi-facebook"></i></a>
                         </div>
                     </div>
                 </div>
             </div>
 
+
             {/* Main Navbar */}
-            <nav className="navbar sticky-top bg-white navbar-expand-lg navbar-light py-3">
+            <nav className="navbar navbar-expand-lg bg-primary navbar-dark sticky-top shadow-sm py-3">
                 <div className="container">
-                    <Link className="navbar-brand" to="/">
-                        <img className="img-fluid" src={logo} alt="Logo" width="96px" />
+                    {/* Logo */}
+                    <Link className="navbar-brand fw-bold text-uppercase" to="/">
+                        <img src={logo} alt="Logo" width="80" className="me-2"/>
+                        PlanB
                     </Link>
+
+                    {/* Toggler */}
                     <button
                         className="navbar-toggler"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target="#nav06"
-                        aria-controls="nav06"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
                         aria-expanded="false"
                         aria-label="Toggle navigation"
                     >
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="collapse navbar-collapse" id="nav06">
-                        <ul className="navbar-nav mt-3 mt-lg-0 mb-3 mb-lg-0 ms-lg-3">
-                            <li className="nav-item me-4">
-                                <Link className="nav-link" to="/">Home</Link>
+                    {/* Navbar Content */}
+                    <div className="collapse navbar-collapse" id="navbarNav">
+                        {/* Center Links */}
+                        <ul className="navbar-nav mx-auto mb-2 mb-lg-0 d-flex gap-2">
+                            <li className="nav-item">
+                                <Link to="/" className="nav-link text-white px-3 rounded bg-secondary">
+                                    <i className="bi bi-house-door-fill me-1"></i> Home
+                                </Link>
+                            </li>
+                            <li className="nav-item position-relative">
+                                <Link to="/cart"
+                                      className="nav-link text-white px-3 rounded bg-success position-relative">
+                                    <i className="bi bi-bag-fill me-1"></i> Cart
+                                    {CartCount > 0 && (
+                                        <span
+                                            className="position-absolute top-0 start-100 translate-middle badge bg-light text-dark">
+                {CartCount}
+              </span>
+                                    )}
+                                </Link>
+                            </li>
+                            <li className="nav-item position-relative">
+                                <Link to="/wish"
+                                      className="nav-link text-white px-3 rounded bg-warning position-relative">
+                                    <i className="bi bi-heart-fill me-1"></i> Wish
+                                    {WishCount > 0 && (
+                                        <span
+                                            className="position-absolute top-0 start-100 translate-middle badge bg-dark text-white">
+                {WishCount}
+              </span>
+                                    )}
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/orders" className="nav-link text-white px-3 rounded bg-info">
+                                    <i className="bi bi-truck me-1"></i> Orders
+                                </Link>
                             </li>
                         </ul>
-                    </div>
 
-                    {/* Search Bar */}
-                    <div className="d-lg-flex">
-                        <div className="input-group">
-                            <input
-                                className="form-control"
-                                type="search"
-                                placeholder="Search"
-                                onChange={(e) => SetSearchKeyword(e.target.value)} // Update Zustand state
-                                aria-label="Search"
-                            />
-                            <Link
-                                to={SearchKeyword.length > 0 ? `/by-keyword/${SearchKeyword}` : `/`}
-                                className="btn btn-outline-dark"
-                            >
-                                <i className="bi bi-search"></i>
-                            </Link>
+                        {/* Search and Auth */}
+                        <div className="d-flex flex-column flex-lg-row align-items-center gap-2 ms-lg-3 mt-3 mt-lg-0">
+                            {/* Search */}
+                            <div className="input-group">
+                                <input
+                                    type="search"
+                                    className="form-control rounded-start"
+                                    placeholder="Search"
+                                    onChange={(e) => SetSearchKeyword(e.target.value)}
+                                />
+                                <Link
+                                    to={SearchKeyword.length > 0 ? `/by-keyword/${SearchKeyword}` : `/`}
+                                    className="btn btn-dark rounded-end"
+                                >
+                                    <i className="bi bi-search"></i>
+                                </Link>
+                            </div>
+
+                            {/* Auth Buttons */}
+                            {isLogin() ? (
+                                <>
+                                    <UserSubmitButton
+                                        onClick={onLogout}
+                                        text="Logout"
+                                        className="btn btn-outline-light px-4"
+                                    />
+                                    <Link to="/profile" className="btn btn-light text-dark px-4">
+                                        Profile
+                                    </Link>
+                                </>
+                            ) : (
+                                <Link to="/login" className="btn btn-light text-dark px-4">
+                                    Login
+                                </Link>
+                            )}
                         </div>
-
-                        <Link to="/cart" className="btn ms-2 btn-light position-relative">
-                            <i className="bi text-dark bi-bag"></i>
-                            {CartCount > 0 && (
-                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
-                                    {CartCount}
-                                </span>
-                            )}
-                        </Link>
-
-                        <Link to="/wish" className="btn ms-2 btn-light d-flex">
-                            <i className="bi text-dark bi-heart"></i>
-                            {WishCount > 0 && (
-                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
-                                    {WishCount}
-                                </span>
-                            )}
-                        </Link>
-
-                        <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link>
-                        <Link type="button" className="btn ms-3 btn-success d-flex" to="/logout">Logout</Link>
                     </div>
                 </div>
             </nav>
+
         </>
+
+
     );
 };
 

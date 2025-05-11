@@ -1,11 +1,12 @@
 import React from 'react';
 import OtpForm from "../components/user/otp-form.jsx";
+import Layout from "../components/layout/layout.jsx";
 
 const OtpPage = () => {
     return (
-        <div>
+        <Layout>
            <OtpForm/>
-        </div>
+        </Layout>
     );
 };
 

@@ -11,28 +11,39 @@ const Brands = () => {
     }
     else {
         return (
-            <div className="section">
+            <div className="section py-5 bg-light">
                 <div className="container">
-                    <div className="row">
-                        <h1 className="headline-4 text-center my-2 p-0">Top Brands</h1>
-                        <span className="bodySmal mb-5 text-center">Explore a World of Choices Across Our Most Popular <br />Shopping Categories </span>
-                        {
-                            BrandList.map((item,i)=>{
-                                return (
-                                    <div key={i} className="col-6 col-lg-8r text-center col-md-8r p-2">
-                                        <Link to={`/by-brand/${item['_id']}`} className="card h-100 rounded-3 bg-white">
-                                            <div className="card-body">
-                                                <img alt="img" className="w-75" src={item['brandImg']} />
-                                                <p className="bodySmal mt-3">{item['brandName']}</p>
-                                            </div>
-                                        </Link>
+                    <div className="text-center mb-4">
+                        <h1 className="h4 fw-bold text-dark">Top Brands</h1>
+                        <p className="text-muted small">
+                            Explore a World of Choices Across Our Most Popular <br/>
+                            Shopping Categories
+                        </p>
+                    </div>
+
+                    <div className="row justify-content-center g-3">
+                        {BrandList.map((item, i) => (
+                            <div key={i} className="col-4 col-sm-3 col-md-2">
+                                <Link
+                                    to={`/by-brand/${item['_id']}`}
+                                    className="card border-0 shadow-sm text-center bg-white rounded-3 h-100 text-decoration-none"
+                                >
+                                    <div className="card-body p-3 d-flex flex-column align-items-center">
+                                        <img
+                                            src={item['brandImg']}
+                                            alt={item['brandName']}
+                                            className="img-fluid mb-2"
+                                            style={{height: '50px', objectFit: 'contain'}}
+                                        />
+                                        <p className="small text-dark fw-semibold mb-0">{item['brandName']}</p>
                                     </div>
-                                )
-                            })
-                        }
+                                </Link>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>
+
         );
     }
 
