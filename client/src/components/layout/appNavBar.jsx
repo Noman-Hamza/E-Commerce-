@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/img/plainb-logo.svg";
+import logo from "../../assets/img/ecom.svg";
 import useProductStore from "../../store/ProductStore.jsx";
 import UserStore from "../../store/UserStore.jsx";
 import UserSubmitButton from "../user/UserSubmitButton.jsx";
@@ -39,7 +39,7 @@ const AppNavBar = () => {
                         {/* Contact Info */}
                         <div className="col-md-6 text-center text-md-start mb-2 mb-md-0">
                             <small>
-                                <i className="bi bi-envelope me-2"></i> support@planb.com
+                                <i className="bi bi-envelope me-2"></i> ebazzar@online.com
                                 <span className="ms-4"><i className="bi bi-phone me-2"></i> 01772595651</span>
                             </small>
                         </div>
@@ -60,8 +60,8 @@ const AppNavBar = () => {
                 <div className="container">
                     {/* Logo */}
                     <Link className="navbar-brand fw-bold text-uppercase" to="/">
-                        <img src={logo} alt="Logo" width="80" className="me-2"/>
-                        PlanB
+                        <img src={logo} alt="Logo" width="80" className="me-2 rounded-4"/>
+
                     </Link>
 
                     {/* Toggler */}

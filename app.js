@@ -15,7 +15,7 @@ const path = require('path');
 
 
 // MongoDB connection
-let url="mongodb://localhost:27017/MERN-eCOMMERCE-Project";
+let url="mongodb+srv://NOMAN:111820010@logitech0.taiw7.mongodb.net/MERN-ECOM";
 
 mongoose.connect(url,{autoIndex:true}).then(()=>{
     console.log('MongoDB Connected');
