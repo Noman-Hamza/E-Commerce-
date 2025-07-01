@@ -26,7 +26,7 @@ mongoose.connect(url,{autoIndex:true}).then(()=>{
 
 app.use(cookieParser());
 app.use(cors({
-    origin: "", // ✅ Frontend domain
+    origin: "https://d-md-noman-e-commerce.vercel.app", // ✅ Frontend domain
     credentials: true
 }));
 app.use(
