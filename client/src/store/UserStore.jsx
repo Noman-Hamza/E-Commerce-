@@ -46,15 +46,12 @@ const UserStore = create((set) => ({
 
 
     VerifyLoginRequest: async (otp) => {
-        set({ isFormSubmit: true });
-        let email = getEmail();
-        let res = await axios.get(`${baseURL}/api/v1/VerifyLogin/${email}/${otp}`, {
-            withCredentials: true
-        });
-        set({ isFormSubmit: false });
+        set({isFormSubmit: true});
+        let email = getEmail()
+        let res = await axios.get(`${baseURL}/api/v1/VerifyLogin/${email}/${otp}`);
+        set({isFormSubmit: false});
         return res.data['status'] === "success";
     },
-
 
     UserLogoutRequest: async () => {
         set({isFormSubmit: true});
