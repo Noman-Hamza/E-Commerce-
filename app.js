@@ -25,8 +25,18 @@ mongoose.connect(url,{autoIndex:true}).then(()=>{
 
 
 app.use(cookieParser());
-app.use(cors());
-app.use(helmet());
+app.use(cors({
+    origin: "", // ✅ Frontend domain
+    credentials: true
+}));
+app.use(
+    helmet.contentSecurityPolicy({
+        useDefaults: true,
+        directives: {
+            "img-src": ["'self'", "https:", "data:"]
+        },
+    })
+);
 app.use(mongoSanitize());
 app.use(xss());
 app.use(hpp())
@@ -45,11 +55,13 @@ app.use(limiter)
 app.set('etag', false);
 app.use("/api/v1",router)
 
-
-// Add React Front End Routing
-app.get('*',function (req,res) {
-    res.sendFile(path.resolve(__dirname,'client','dist','index.html'))
-})
+// app.use(express.static("client/dist"));
+//
+//
+// // Add React Front End Routing
+// app.get('*',function (req,res) {
+//     res.sendFile(path.resolve(__dirname,'client','dist','index.html'))
+// })
 
 module.exports=app;
 
