@@ -57,10 +57,11 @@ const UserStore = create((set) => ({
 
 
     UserLogoutRequest: async () => {
-        set({isFormSubmit: true});
-        let email = getEmail()
-        let res = await axios.get(`${baseURL}/api/v1/UserLogout`);
-        set({isFormSubmit: false});
+        set({ isFormSubmit: true });
+        let res = await axios.get(`${baseURL}/api/v1/UserLogout`, {
+            withCredentials: true
+        });
+        set({ isFormSubmit: false });
         return res.data['status'] === "success";
     },
 
@@ -78,7 +79,9 @@ const UserStore = create((set) => ({
     ProfileDetails:null,
     ProfileDetailsRequest:async()=>{
         try {
-            let res=await axios.get(`${baseURL}/api/v1/ReadProfile`);
+            let res=await axios.get(`${baseURL}/api/v1/ReadProfile`, {
+                withCredentials: true
+            });
             if(res.data['data'].length>0){
                 set({ProfileDetails:res.data['data'][0]})
                 set({ProfileForm:res.data['data'][0]})
@@ -93,7 +96,9 @@ const UserStore = create((set) => ({
     ProfileSaveRequest:async(PostBody)=>{
         try {
             set({ProfileDetails:null})
-            let res=await axios.post(`${baseURL}/api/v1/UpdateProfile`,PostBody);
+            let res=await axios.post(`${baseURL}/api/v1/UpdateProfile`,PostBody, {
+                withCredentials: true
+            });
             return res.data['status'] === "success";
         }catch (e) {
             unauthorized(e.response.status)
