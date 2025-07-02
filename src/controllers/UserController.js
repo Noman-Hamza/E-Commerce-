@@ -12,7 +12,7 @@ exports.VerifyLogin=async (req,res)=>{
     if(result['status']==="success"){
 
         // Cookies Option
-        let cookieOption={expires:new Date(Date.now()+24*6060*1000), httpOnly:true,secure: true,partitioned: true, sameSite:'None',path:"/"};
+        let cookieOption={expires:new Date(Date.now()+24 * 60 * 60 * 1000), httpOnly:true,secure: true,sameSite:'None',path:"/"};
 
         // Set Cookies With Response
         res.cookie('token',result['token'],cookieOption)
